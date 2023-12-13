@@ -10,3 +10,4 @@ urlpatterns = [
     path('update/<int:pk>', BUpdateView.as_view(), name="blog_update"),
     path('delete/<int:pk>', BDeleteView.as_view(), name="blog_delete"),
 ]
+

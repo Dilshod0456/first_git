@@ -20,6 +20,7 @@ class HomeView(ListView):
             yangiliklar = Blog.objects.all()
         return yangiliklar
 
+
 class BDetailView(DetailView):
     template_name = 'blog/blog_details.html'
     model = Blog
