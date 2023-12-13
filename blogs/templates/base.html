@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+         Bosh sahifa
+        {% endblock title %}
+    </title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        nav {
+            position: fixed;
+            z-index: 99;
+            width: 100%;
+
+            background: #242526;
+        }
+
+        nav .wrapper {
+            position: relative;
+            max-width: 1300px;
+            padding: 0px 30px;
+            height: 70px;
+            line-height: 70px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .wrapper .logo a {
+            color: #f2f2f2;
+            font-size: 30px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .wrapper .nav-links {
+            display: inline-flex;
+        }
+
+        .nav-links li {
+            list-style: none;
+        }
+
+        .nav-links li a {
+            color: #f2f2f2;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 9px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            background: #3A3B3C;
+        }
+
+        .nav-links .mobile-item {
+            display: none;
+        }
+
+        .nav-links .drop-menu {
+            position: absolute;
+            background: #242526;
+            width: 180px;
+            line-height: 45px;
+            top: 85px;
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-links li:hover .drop-menu,
+        .nav-links li:hover .mega-box {
+            transition: all 0.3s ease;
+            top: 70px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .drop-menu li a {
+            width: 100%;
+            display: block;
+            padding: 0 0 0 15px;
+            font-weight: 400;
+            border-radius: 0px;
+        }
+
+        .mega-box {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            padding: 0 30px;
+            top: 85px;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .mega-box .content {
+            background: #242526;
+            padding: 25px 20px;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .mega-box .content .row {
+            width: calc(25% - 30px);
+            line-height: 45px;
+        }
+
+        .content .row img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content .row header {
+            color: #f2f2f2;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .content .row .mega-links {
+            margin-left: -40px;
+            border-left: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .row .mega-links li {
+            padding: 0 20px;
+        }
+
+        .row .mega-links li a {
+            padding: 0px;
+            padding: 0 20px;
+            color: #d9d9d9;
+            font-size: 17px;
+            display: block;
+        }
+
+        .row .mega-links li a:hover {
+            color: #f2f2f2;
+        }
+
+        .wrapper .btn {
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .wrapper .btn.close-btn {
+            position: absolute;
+            right: 30px;
+            top: 10px;
+        }
+
+        @media screen and (max-width: 970px) {
+            .wrapper .btn {
+                display: block;
+            }
+
+            .wrapper .nav-links {
+                position: fixed;
+                height: 100vh;
+                width: 100%;
+                max-width: 350px;
+                top: 0;
+                left: -100%;
+                background: #242526;
+                display: block;
+                padding: 50px 10px;
+                line-height: 50px;
+                overflow-y: auto;
+                box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.18);
+                transition: all 0.3s ease;
+            }
+
+            /* custom scroll bar */
+            ::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #242526;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #3A3B3C;
+            }
+
+            #menu-btn:checked~.nav-links {
+                left: 0%;
+            }
+
+            #menu-btn:checked~.btn.menu-btn {
+                display: none;
+            }
+
+            #close-btn:checked~.btn.menu-btn {
+                display: block;
+            }
+
+            .nav-links li {
+                margin: 15px 10px;
+            }
+
+            .nav-links li a {
+                padding: 0 20px;
+                display: block;
+                font-size: 20px;
+            }
+
+            .nav-links .drop-menu {
+                position: static;
+                opacity: 1;
+                top: 65px;
+                visibility: visible;
+                padding-left: 20px;
+                width: 100%;
+                max-height: 0px;
+                overflow: hidden;
+                box-shadow: none;
+                transition: all 0.3s ease;
+            }
+
+            #showDrop:checked~.drop-menu,
+            #showMega:checked~.mega-box {
+                max-height: 100%;
+            }
+
+            .nav-links .desktop-item {
+                display: none;
+            }
+
+            .nav-links .mobile-item {
+                display: block;
+                color: #f2f2f2;
+                font-size: 20px;
+                font-weight: 500;
+                padding-left: 20px;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links .mobile-item:hover {
+                background: #3A3B3C;
+            }
+
+            .drop-menu li {
+                margin: 0;
+            }
+
+            .drop-menu li a {
+                border-radius: 5px;
+                font-size: 18px;
+            }
+
+            .mega-box {
+                position: static;
+                top: 65px;
+                opacity: 1;
+                visibility: visible;
+                padding: 0 20px;
+                max-height: 0px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .mega-box .content {
+                box-shadow: none;
+                flex-direction: column;
+                padding: 20px 20px 0 20px;
+            }
+
+            .mega-box .content .row {
+                width: 100%;
+                margin-bottom: 15px;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .mega-box .content .row:nth-child(1),
+            .mega-box .content .row:nth-child(2) {
+                border-top: 0px;
+            }
+
+            .content .row .mega-links {
+                border-left: 0px;
+                padding-left: 15px;
+            }
+
+            .row .mega-links li {
+                margin: 0;
+            }
+
+            .content .row header {
+                font-size: 19px;
+            }
+        }
+
+        nav input {
+            display: none;
+        }
+
+        .body-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-align: center;
+            padding: 0 30px;
+        }
+
+        .body-text div {
+            font-size: 45px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="wrapper">
+            <div class="logo"><a href="#">QarDU Yangiliklari</a></div>
+            <input type="radio" name="slider" id="menu-btn">
+            <input type="radio" name="slider" id="close-btn">
+            <ul class="nav-links">
+                <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+                <li><a href="{% url 'blogs:blog_home' %}">Bosh sahifa</a></li>
+                <li><a href="#">About</a></li>
+                <li>
+                    <a href="#" class="desktop-item">Bloglar</a>
+                    <input type="checkbox" id="showDrop">
+                    <label for="showDrop" class="mobile-item">Bloglar</label>
+                    <ul class="drop-menu">
+                        <li><a href="{% url 'blogs:blog_create' %}">Blog qo'shish</a></li>
+                        <li><a href="#">Drop menu 2</a></li>
+                        <li><a href="#">Drop menu 3</a></li>
+                        <li><a href="#">Drop menu 4</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="desktop-item">Mega Menu</a>
+                    <input type="checkbox" id="showMega">
+                    <label for="showMega" class="mobile-item">Mega Menu</label>
+                    <div class="mega-box">
+                        <div class="content">
+                            <div class="row">
+                                <img src="https://fadzrinmadu.github.io/hosted-assets/responsive-mega-menu-and-dropdown-menu-using-only-html-and-css/img.jpg"
+                                    alt="">
+                            </div>
+                            <div class="row">
+                                <header>Design Services</header>
+                                <ul class="mega-links">
+                                    <li><a href="#">Graphics</a></li>
+                                    <li><a href="#">Vectors</a></li>
+                                    <li><a href="#">Business cards</a></li>
+                                    <li><a href="#">Custom logo</a></li>
+                                </ul>
+                            </div>
+                            <div class="row">
+                                <header>Email Services</header>
+                                <ul class="mega-links">
+                                    <li><a href="#">Personal Email</a></li>
+                                    <li><a href="#">Business Email</a></li>
+                                    <li><a href="#">Mobile Email</a></li>
+                                    <li><a href="#">Web Marketing</a></li>
+                                </ul>
+                            </div>
+                            <div class="row">
+                                <header>Security services</header>
+                                <ul class="mega-links">
+                                    <li><a href="#">Site Seal</a></li>
+                                    <li><a href="#">VPS Hosting</a></li>
+                                    <li><a href="#">Privacy Seal</a></li>
+                                    <li><a href="#">Website design</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="#">Feedback</a></li>
+            </ul>
+            <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+        </div>
+    </nav>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    {% block content %}
+        
+    {% endblock content %}
+<br>
+<br>
+    <style>
+        #lab_social_icon_footer {
+            padding: 40px 0;
+            background-color: #dedede;
+        }
+
+        #lab_social_icon_footer a {
+            color: #333;
+        }
+
+        #lab_social_icon_footer .social:hover {
+            -webkit-transform: scale(1.1);
+            -moz-transform: scale(1.1);
+            -o-transform: scale(1.1);
+        }
+
+        #lab_social_icon_footer .social {
+            -webkit-transform: scale(0.8);
+            /* Browser Variations: */
+
+            -moz-transform: scale(0.8);
+            -o-transform: scale(0.8);
+            -webkit-transition-duration: 0.5s;
+            -moz-transition-duration: 0.5s;
+            -o-transition-duration: 0.5s;
+        }
+
+        /*
+    Multicoloured Hover Variations
+*/
+
+        #lab_social_icon_footer #social-fb:hover {
+            color: #3B5998;
+        }
+
+        #lab_social_icon_footer #social-tw:hover {
+            color: #4099FF;
+        }
+
+        #lab_social_icon_footer #social-gp:hover {
+            color: #d34836;
+        }
+
+        #lab_social_icon_footer #social-em:hover {
+            color: #f39c12;
+        }
+    </style>
+
+    <footer>
+        <section id="lab_social_icon_footer">
+            <!-- Include Font Awesome Stylesheet in Header -->
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+            <div class="container">
+                <div class="text-center center-block" style="text-align: center;">
+                    <a href="https://www.facebook.com/bootsnipp"><i id="social-fb"
+                            class="fa fa-facebook-square fa-3x social"></i></a>
+                    <a href="https://twitter.com/bootsnipp"><i id="social-tw"
+                            class="fa fa-twitter-square fa-3x social"></i></a>
+                    <a href="https://plus.google.com/+Bootsnipp-page"><i id="social-gp"
+                            class="fa fa-google-plus-square fa-3x social"></i></a>
+                    <a href="mailto:#"><i id="social-em" class="fa fa-envelope-square fa-3x social"></i></a>
+                </div>
+            </div>
+        </section>
+    </footer>
+</body>
+
+</html>

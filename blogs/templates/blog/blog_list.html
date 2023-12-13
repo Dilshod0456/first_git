@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Yangiliklar
+{% endblock title %}
+    
+
+{% block content %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+    .container-list {
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        background-color: rgba(9, 94, 252, 0.3);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        padding: 20px;
+        margin: 15px;
+        filter: drop-shadow(0 30px 10px rgba(0, 0, 0, 0.125));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 400px;
+
+    }
+
+    .wrapper {
+        width: 100%;
+        height: 100%;
+
+    }
+
+    h1 {
+        font-family: 'Righteous', sans-serif;
+        color: rgba(43, 39, 39, 0.98);
+        text-transform: uppercase;
+        font-size: 1.4rem;
+    }
+
+    p {
+        color: #000000;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        text-align: justify;
+        font-size: 16px;
+        line-height: 150%;
+        letter-spacing: 2px;
+        font-weight: 400;
+        margin: 5px 0;
+    }
+
+    .button-wrapper {
+        margin-top: 18px;
+    }
+
+    .btn {
+        border: none;
+        padding: 12px 24px;
+        border-radius: 24px;
+        font-size: 12px;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        cursor: pointer;
+    }
+
+    .btn+.btn {
+        margin-left: 10px;
+    }
+
+    .outline {
+        background: transparent;
+        color: rgba(18, 50, 56, 0.9);
+        border: 1px solid rgba(0, 212, 255, 0.6);
+        transition: all .3s ease;
+
+    }
+
+    .outline:hover {
+        transform: scale(1.125);
+        color: rgba(209, 123, 123, 0.9);
+        border-color: rgba(255, 255, 255, 0.9);
+        transition: all .3s ease;
+        font-weight: 700;
+    }
+
+    .fill {
+        background: rgba(0, 212, 255, 0.9);
+        color: rgba(255, 255, 255, 0.95);
+        filter: drop-shadow(0);
+        font-weight: bold;
+        transition: all .3s ease;
+    }
+
+    .fill:hover {
+        transform: scale(1.125);
+        border-color: rgba(255, 255, 255, 0.9);
+        filter: drop-shadow(0 10px 5px rgba(0, 0, 0, 0.125));
+        transition: all .3s ease;
+    }
+    body {
+        background-color: #fff;
+    }
+</style>    
+<form method="get">
+    <input type="text" name="search" placeholder="Matin kiriting ...">
+    <button type="submit">Izlash</button>
+</form>
+<div style="display: flex; flex-wrap: wrap; justify-content: center;">
+    {% for blog in blogs %}   
+    <div class="container-list">
+        <div class="wrapper">
+            <div class="banner-image"> 
+                <img src="{{ blog.image.url }}" width="360px" height="300" alt="Blogning rasmi">
+            </div>
+            <h1>{{blog.title}}</h1>
+            <p>{{blog.description}}</p>
+        </div>
+        {{blog.sanasi}} 
+        {{blog.author}}
+
+        <div class="button-wrapper">
+            <a href="{% url 'blogs:blog_detail' blog.pk %}">
+                <button class="btn outline">Batafsil</button></a>
+                <a href="{% url 'blogs:blog_update' blog.pk %}">
+            <button class="btn fill">Yangilash</button></a>
+
+        </div>
+    </div>
+    {% endfor %}
+
+</div>    
+
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Yangiliklar yaratish (yangilash)
+{% endblock title %}
+    
+
+{% block content %}
+
+<form  method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>{{ form.title.label_tag }} {{ form.title }}</p>
+    <p>{{ form.description.label_tag }} {{ form.description }}</p>
+    <p>{{ form.author.label_tag }} {{ form.author }}</p>
+    <p>{{ form.image.label_tag }} <input type="file" name="image"></p>
+    <br>
+    <button type="submit">
+        Blog yaratish
+    </button>
+</form>
+
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Batafsil
+{% endblock title %}
+
+{% block content %}
+    
+
+
+<body>
+    <img src="{{blog.image.url}}" width="400px" height="400px" alt="">
+     <br> {{blog.title}} <br>
+    {{blog.sanasi}} <br>
+    {{blog.description}} <br>
+    {{blog.author}}
+<br>
+<a href="{% url 'blogs:blog_update' blog.id %}">
+    <button>Tahrirlash</button>
+</a>
+<a href="{% url 'blogs:blog_delete' blog.id %}">
+    <button>O'chirish</button>
+</a>
+</body>
+</html>
+
+{% endblock %}
