@@ -1,9 +1,20 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from .models import Blog
 from .forms import BlogForm
 from django.db.models import Q
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.shortcuts import (
+    render, 
+    redirect, 
+    get_object_or_404,
+    )
+from django.views.generic import (
+    ListView, 
+    CreateView, 
+    DetailView, 
+    UpdateView, 
+    DeleteView, 
+    TemplateView,
+    )
 
 # Create your views here.
 
@@ -19,7 +30,6 @@ class HomeView(ListView):
         else:
             yangiliklar = Blog.objects.all()
         return yangiliklar
-
 
 class BDetailView(DetailView):
     template_name = 'blog/blog_details.html'

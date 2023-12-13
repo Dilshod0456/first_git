@@ -342,17 +342,15 @@
             <input type="radio" name="slider" id="close-btn">
             <ul class="nav-links">
                 <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
-                <li><a href="{% url 'blogs:blog_home' %}">Bosh sahifa</a></li>
+                <li><a href="{% url 'app1:home' %}">Bosh sahifa</a></li>
                 <li><a href="#">About</a></li>
                 <li>
                     <a href="#" class="desktop-item">Bloglar</a>
                     <input type="checkbox" id="showDrop">
                     <label for="showDrop" class="mobile-item">Bloglar</label>
                     <ul class="drop-menu">
+                        <li><a href="{% url 'blogs:blog_home' %}">Bloglar</a></li>
                         <li><a href="{% url 'blogs:blog_create' %}">Blog qo'shish</a></li>
-                        <li><a href="#">Drop menu 2</a></li>
-                        <li><a href="#">Drop menu 3</a></li>
-                        <li><a href="#">Drop menu 4</a></li>
                     </ul>
                 </li>
                 <li>
