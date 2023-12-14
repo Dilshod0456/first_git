@@ -7,6 +7,7 @@ class Blog(models.Model):
     description = models.TextField()
     author = models.ForeignKey('app1.User', on_delete = models.CASCADE, null =True, blank = True)
     image = models.ImageField(upload_to="imgs/")
+    likes = models.ManyToManyField('app1.User', related_name='User_like')
 
     def __str__(self):
         return self.title
