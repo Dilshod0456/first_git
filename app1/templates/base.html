@@ -393,7 +393,24 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="#">Feedback</a></li>
+                <li>
+                    {% if request.user.is_authenticated %}
+                    <button style="border: none; background-color: #3A3B3C; height: 40px; padding: 10px; color: #dedede;" >
+                        {{request.user.username}}
+                    </button>
+
+                        <form action="{% url 'logout' %}" method="post" style="position: fixed; right: 10px; top: 0px; ">
+                            {% csrf_token %}
+                            <button type="submit" style="border: none; background-color: #3A3B3C; height: 40px; padding: 10px; color: #dedede;"
+                            >Tizimdan chiqish</button>
+                        </form>
+                    {% else %}
+                    <a href="{% url 'login' %}" style="border: none; background-color: #3A3B3C; height: 40px; padding: 10px; color: #dedede;" >
+                        Foydalanuvchi
+                    </a>
+                    <a href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                </li>
             </ul>
             <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
         </div>
@@ -404,6 +421,7 @@
     <br>
     <br>
     <br>
+    {% include "details/notification.html" %}
     <br>
 
 
